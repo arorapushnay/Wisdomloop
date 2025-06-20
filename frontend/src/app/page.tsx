@@ -193,7 +193,7 @@ function HomeContent() {
         body: formData,
       });
       if (!res.ok) throw new Error("Upload failed");
-      const data = await res.json();
+      await res.json();
       setBrandStatus("Upload successful!");
     } catch {
       setBrandStatus("Upload failed");
