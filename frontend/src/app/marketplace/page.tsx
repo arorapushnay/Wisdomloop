@@ -59,7 +59,7 @@ export default function Marketplace() {
 							<Tooltip.Root>
 								<Tooltip.Trigger asChild>
 									<span
-										className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-md ${MARKETPLACE_BADGE_COLORS[item.type]} transition-transform duration-200 cursor-pointer group-hover:scale-105 group-hover:shadow-glow`}
+										className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-md ${MARKETPLACE_BADGE_COLORS[item.type as keyof typeof MARKETPLACE_BADGE_COLORS]} transition-transform duration-200 cursor-pointer group-hover:scale-105 group-hover:shadow-glow`}
 									>
 										{item.type}
 									</span>
