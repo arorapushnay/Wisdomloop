@@ -12,7 +12,7 @@ const checklist = [
 ];
 
 export default function Compliance() {
-	const [compliance, setCompliance] = useState<any>(null);
+	const [compliance, setCompliance] = useState<{status: string, color: string, icon: React.ComponentType<import("lucide-react").LucideProps>} | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [expanded, setExpanded] = useState(false);

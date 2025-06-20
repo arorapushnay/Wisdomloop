@@ -18,7 +18,7 @@ const mockData = {
 };
 
 export default function Enterprise() {
-  const [enterprise, setEnterprise] = useState<any>(null);
+  const [enterprise, setEnterprise] = useState<typeof mockData | null>(null);
   const [loading, setLoading] = useState(false);
   const handleCheck = async () => {
     setLoading(true);
