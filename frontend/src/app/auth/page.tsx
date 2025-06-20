@@ -19,7 +19,7 @@ export default function Auth() {
       setStatus(mode === "login" ? "Logged in! (mock)" : "Signed up! (mock)");
       toast.success(mode === "login" ? "Logged in!" : "Signed up!");
       setTimeout(() => router.push("/"), 1000);
-    } catch (err) {
+    } catch {
       toast.error("Authentication failed");
     } finally {
       setLoading(false);

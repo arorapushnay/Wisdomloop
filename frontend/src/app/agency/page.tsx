@@ -128,7 +128,7 @@ export default function AgencyDashboard() {
 								Best Performer
 							</div>
 							<div className="text-sm text-muted-foreground">
-								"Brand Video #2"
+								&quot;Brand Video #2&quot;
 							</div>
 						</div>
 						<div className="ml-auto flex items-center gap-2">
