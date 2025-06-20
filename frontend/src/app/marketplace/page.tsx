@@ -75,7 +75,7 @@ export default function Marketplace() {
 							</Tooltip.Root>
 							{/* Title with icon */}
 							<div className="flex items-center gap-2 text-xl font-bold text-white">
-								<LucideIcon name={MARKETPLACE_ICONS[item.type]} size={22} />
+								<LucideIcon name={MARKETPLACE_ICONS[item.type as keyof typeof MARKETPLACE_ICONS] as any} size={22} />
 								<span>{item.name}</span>
 							</div>
 							<div className="text-muted text-base mb-2">
