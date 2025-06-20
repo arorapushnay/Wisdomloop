@@ -288,8 +288,6 @@ function HomeContent() {
     setTiktokLoading(false);
   };
 
-  // Remove unused imports and variables as per lint output.
-
   if (status === "loading") {
     return <div className="flex items-center justify-center h-screen"><Loader size={48} className="text-primary" /> Loading authentication...</div>;
   }
