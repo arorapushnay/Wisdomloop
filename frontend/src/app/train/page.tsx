@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { UploadCloud, CheckCircle2, XCircle, Loader2, Bot, Info, FileText, ChevronDown, ChevronUp, LogOut } from "lucide-react";
+import { UploadCloud, CheckCircle2, XCircle, Loader2, Bot, FileText, ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const intensityOptions = [
@@ -15,7 +15,6 @@ export default function ModelTraining() {
 	const [progress, setProgress] = useState(0);
 	const [intensity, setIntensity] = useState(intensityOptions[1]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
-	const [showLogs, setShowLogs] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Simulate upload and training
@@ -214,7 +213,6 @@ export default function ModelTraining() {
 						<button
 							className="flex items-center gap-2 px-4 py-2 rounded-lg border border-zinc-700 bg-zinc-900/70 text-zinc-300 hover:bg-zinc-800/80 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed relative group"
 							disabled={status !== 'success'}
-							onClick={() => setShowLogs(true)}
 							type="button"
 						>
 							<LogOut className="w-4 h-4" /> View Logs

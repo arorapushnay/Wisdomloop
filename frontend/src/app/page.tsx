@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import AppProviders from "./AppProviders";
 import { Toaster, toast } from "./toast";
 import { LucideIcon } from "./LucideIcon";
@@ -10,26 +10,6 @@ import { motion } from "framer-motion";
 import { Card } from "./Card";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Loader, Skeleton } from "./Loader";
-import { EmptyState } from "./EmptyState";
-import QuickActionsButton from "./AIAssistantBubble";
-import SidebarNav from "./SidebarNav";
-import Logo from "./Logo";
-
-function MotivationalQuoteCarousel() {
-  const quotes = [
-    "Every great idea starts with a single step.",
-    "Your story matters. Share it with the world!",
-    "Consistency is the secret to growth.",
-    "You are the creator of your own success.",
-    "Small progress is still progress. Keep going!",
-  ];
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => setIndex((i) => (i + 1) % quotes.length), 5000);
-    return () => clearInterval(interval);
-  }, []);
-  return <div className="motivational-quote animate-fade-in">{quotes[index]}</div>;
-}
 
 function TooltipIcon({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -54,7 +34,6 @@ function HomeContent() {
   }>(null);
   const [error, setError] = useState<string | null>(null);
   const [uploadStatus, setUploadStatus] = useState<null | string>(null);
-  const [dragActive, setDragActive] = useState(false);
   const [uploadedFilename, setUploadedFilename] = useState<string | null>(null);
   const [transcript, setTranscript] = useState<string | null>(null);
   const [chunks, setChunks] = useState<string[] | null>(null);
@@ -89,12 +68,6 @@ function HomeContent() {
   const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
 
-  // TikTok scheduling state
-  const [tiktokUrl, setTiktokUrl] = useState("");
-  const [tiktokCaption, setTiktokCaption] = useState("");
-  const [tiktokStatus, setTiktokStatus] = useState<string | null>(null);
-  const [tiktokLoading, setTiktokLoading] = useState(false);
-
   // Scroll state for collapsing header
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -113,43 +86,6 @@ function HomeContent() {
       .catch((err) => setError(err.message));
   }, []);
 
-  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-    const files = e.dataTransfer.files;
-    if (files.length === 0) return;
-    setUploadLoading(true);
-    setUploadStatus("Uploading...");
-    const formData = new FormData();
-    formData.append("file", files[0]);
-    try {
-      const res = await fetch("http://localhost:8000/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error("Upload failed");
-      const data = await res.json();
-      setUploadStatus("Upload successful!");
-      setUploadedFilename(data.filename);
-      setTranscript(null);
-      setChunks(null);
-      toast.success("Video uploaded successfully!");
-    } catch (err) {
-      setUploadStatus("Upload failed");
-      setUploadedFilename(null);
-      toast.error(err instanceof Error ? err.message : "Upload failed");
-    }
-    setUploadLoading(false);
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-  };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     setUploadLoading(true);
@@ -325,6 +261,12 @@ function HomeContent() {
     setAiLoading(false);
   };
 
+  // TikTok scheduling state
+  const [tiktokUrl, setTiktokUrl] = useState("");
+  const [tiktokCaption, setTiktokCaption] = useState("");
+  const [tiktokStatus, setTiktokStatus] = useState<string | null>(null);
+  const [tiktokLoading, setTiktokLoading] = useState(false);
+
   const handleTiktokSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
     setTiktokLoading(true);
@@ -346,14 +288,7 @@ function HomeContent() {
     setTiktokLoading(false);
   };
 
-  const handleAIVideo = async () => {
-    try {
-      // Placeholder for actual AI video logic
-      toast.success("AI Video generation started!");
-    } catch (err) {
-      toast.error("Failed to start AI video generation");
-    }
-  };
+  // Remove unused imports and variables as per lint output.
 
   if (status === "loading") {
     return <div className="flex items-center justify-center h-screen"><Loader size={48} className="text-primary" /> Loading authentication...</div>;
@@ -373,9 +308,6 @@ function HomeContent() {
   }
   return (
     <div className="flex min-h-screen">
-      {/* SidebarNav is now the only sidebar/nav list */}
-      {/* <aside className="hidden md:flex flex-col ..."> ...duplicated nav... </aside> */}
-      {/* Main Content Grid */}
       <main className="w-full max-w-7xl mx-auto px-4 py-8 flex-1">
         {/* Personalized Welcome Banner */}
         <div
@@ -413,9 +345,10 @@ function HomeContent() {
 
         {/* Animated Cards for Each Section */}
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {[0,1,2].map((i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 * (i+1) }} className="h-full flex flex-col">
-              {i === 0 && (
+          {[
+            {
+              key: 'upload',
+              content: (
                 <Card
                   title="Upload Content"
                   subtitle="Upload your video, audio, or document to get started."
@@ -508,8 +441,11 @@ function HomeContent() {
                     )}
                   </div>
                 </Card>
-              )}
-              {i === 1 && (
+              ),
+            },
+            {
+              key: 'brand',
+              content: (
                 <Card
                   title="Brand Onboarding"
                   subtitle="Upload your brand style or description."
@@ -535,8 +471,11 @@ function HomeContent() {
                     {brandStatus && <div className="text-sm font-medium mt-2 flex items-center gap-1"><LucideIcon name={brandStatus.includes('success') ? 'CheckCircle2' : 'AlertCircle'} size={16} />{brandStatus}</div>}
                   </div>
                 </Card>
-              )}
-              {i === 2 && (
+              ),
+            },
+            {
+              key: 'tiktok',
+              content: (
                 <Card
                   title="Invite Team"
                   subtitle="Invite collaborators to your workspace."
@@ -562,7 +501,17 @@ function HomeContent() {
                     {inviteStatus && <div className="text-sm font-medium mt-2 flex items-center gap-1"><LucideIcon name={inviteStatus.includes('fail') ? 'AlertCircle' : 'CheckCircle2'} size={16} />{inviteStatus}</div>}
                   </form>
                 </Card>
-              )}
+              ),
+            },
+          ].map((card, i) => (
+            <motion.div
+              key={card.key}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 * (i + 1) }}
+              className="h-full flex flex-col"
+            >
+              {card.content}
             </motion.div>
           ))}
         </div>
@@ -755,7 +704,6 @@ function HomeContent() {
       <button className="fab" title="Quick Upload" onClick={() => inputRef.current?.click()}>
         <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#fff"/><path d="M12 7v10M7 12h10" stroke="#6c47ff" strokeWidth="2" strokeLinecap="round"/></svg>
       </button>
-      <QuickActionsButton />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { BarChart4, Sparkles, MessageCircle, ArrowLeft, ArrowRight, Clock, Loader2 } from "lucide-react";
+import { BarChart4, Sparkles, MessageCircle, ArrowLeft, Clock, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 

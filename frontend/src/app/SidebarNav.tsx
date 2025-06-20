@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { User2, Store, KeyRound, BarChart4, Settings, LogOut } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import Image from "next/image";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Logo from "./Logo";
 

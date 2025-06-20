@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Loader2, User2, Lock, ShieldCheck, Trash2, KeyRound } from "lucide-react";
+import { Loader2, ShieldCheck, Trash2, KeyRound } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "../toast";
 
