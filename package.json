@@ -1,0 +1,17 @@
+{
+  "name": "wisdomloop-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"uvicorn main:app --reload --app-dir backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "framer-motion": "^12.18.1",
+    "lucide-react": "^0.518.0",
+    "next-themes": "^0.4.6",
+    "react-hot-toast": "^2.5.2"
+  }
+}
