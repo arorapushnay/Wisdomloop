@@ -4,3 +4,7 @@ python-multipart
 boto3
 openai
 authlib
+starlette
+sqlalchemy
+botocore
+pytest
