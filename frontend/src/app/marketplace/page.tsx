@@ -52,7 +52,7 @@ export default function Marketplace() {
 							{/* Preview image or icon */}
 							<div className="flex items-center justify-center h-16 mb-2">
 								<span className="text-3xl md:text-4xl">
-									{MARKETPLACE_EMOJIS[item.type]}
+									{MARKETPLACE_EMOJIS[item.type as keyof typeof MARKETPLACE_EMOJIS]}
 								</span>
 							</div>
 							{/* Badge */}
