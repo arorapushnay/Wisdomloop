@@ -77,7 +77,7 @@ function HomeContent() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8000/analytics")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics`)
       .then((res) => {
         if (!res.ok) throw new Error("Backend not reachable");
         return res.json();
@@ -93,7 +93,7 @@ function HomeContent() {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     try {
-      const res = await fetch("http://localhost:8000/upload", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -117,7 +117,7 @@ function HomeContent() {
     setTranscript("Transcribing...");
     setChunks(null);
     try {
-      const res = await fetch("http://localhost:8000/transcribe", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transcribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: uploadedFilename }),
@@ -135,7 +135,7 @@ function HomeContent() {
     setChunks(["Chunking..."]);
     setAssets(null);
     try {
-      const res = await fetch("http://localhost:8000/chunk", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chunk`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -152,7 +152,7 @@ function HomeContent() {
     setAssets(["Repurposing..."]);
     setScheduleStatus(null);
     try {
-      const res = await fetch("http://localhost:8000/repurpose", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/repurpose`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -168,7 +168,7 @@ function HomeContent() {
     setScheduleLoading(true);
     setScheduleStatus("Scheduling...");
     try {
-      const res = await fetch("http://localhost:8000/schedule", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -188,7 +188,7 @@ function HomeContent() {
     formData.append("file", e.target.files[0]);
     formData.append("description", brandDesc);
     try {
-      const res = await fetch("http://localhost:8000/brand-style", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/brand-style`, {
         method: "POST",
         body: formData,
       });
@@ -206,7 +206,7 @@ function HomeContent() {
     const formData = new FormData();
     formData.append("email", inviteEmail);
     try {
-      const res = await fetch("http://localhost:8000/invite", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/invite`, {
         method: "POST",
         body: formData,
       });
@@ -230,7 +230,7 @@ function HomeContent() {
     const formData = new FormData();
     abVariants.forEach((v) => formData.append("variants", v));
     try {
-      const res = await fetch("http://localhost:8000/ab-test", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ab-test`, {
         method: "POST",
         body: formData,
       });
@@ -247,7 +247,7 @@ function HomeContent() {
     setAiLoading(true);
     setAiResponse(null);
     try {
-      const res = await fetch("http://localhost:8000/chatgpt", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatgpt`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: aiPrompt }),
@@ -275,7 +275,7 @@ function HomeContent() {
       const formData = new FormData();
       formData.append("content_url", tiktokUrl);
       formData.append("caption", tiktokCaption);
-      const res = await fetch("http://localhost:8000/schedule/tiktok", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule/tiktok`, {
         method: "POST",
         body: formData,
       });
