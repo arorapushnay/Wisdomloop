@@ -125,7 +125,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Transcription failed");
       const data = await res.json();
       setTranscript(data.transcript);
-    } catch (err) {
+    } catch {
       setTranscript("Transcription failed");
     }
     setTranscribeLoading(false);
@@ -142,7 +142,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Chunking failed");
       const data = await res.json();
       setChunks(data.chunks);
-    } catch (err) {
+    } catch {
       setChunks(["Chunking failed"]);
     }
     setChunkLoading(false);
@@ -159,7 +159,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Repurposing failed");
       const data = await res.json();
       setAssets(data.assets);
-    } catch (err) {
+    } catch {
       setAssets(["Repurposing failed"]);
     }
     setRepurposeLoading(false);
@@ -175,7 +175,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Scheduling failed");
       const data = await res.json();
       setScheduleStatus(data.status);
-    } catch (err) {
+    } catch {
       setScheduleStatus("Scheduling failed");
     }
     setScheduleLoading(false);
@@ -195,7 +195,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Upload failed");
       const data = await res.json();
       setBrandStatus("Upload successful!");
-    } catch (err) {
+    } catch {
       setBrandStatus("Upload failed");
     }
   };
@@ -213,7 +213,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("Invite failed");
       const data = await res.json();
       setInviteStatus(data.status);
-    } catch (err) {
+    } catch {
       setInviteStatus("Invite failed");
     }
   };
@@ -237,7 +237,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("A/B test failed");
       const data = await res.json();
       setAbResult(`Winner: ${data.winner}`);
-    } catch (err) {
+    } catch {
       setAbResult("A/B test failed");
     }
   };
@@ -255,7 +255,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("AI request failed");
       const data = await res.json();
       setAiResponse(data.response);
-    } catch (err) {
+    } catch {
       setAiResponse("AI request failed");
     }
     setAiLoading(false);
@@ -282,7 +282,7 @@ function HomeContent() {
       if (!res.ok) throw new Error("TikTok scheduling failed");
       const data = await res.json();
       setTiktokStatus(data.status);
-    } catch (err) {
+    } catch {
       setTiktokStatus("TikTok scheduling failed");
     }
     setTiktokLoading(false);
